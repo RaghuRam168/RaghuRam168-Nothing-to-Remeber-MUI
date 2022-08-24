@@ -24,22 +24,22 @@ const CustomerList = () => {
     <Table>
         <TableHead>
             <TableRow>
-                <TableCell>Avatar</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Phone No</TableCell>
-                <TableCell>DOP</TableCell>
+                <TableCell sx={{width:'100px'}}>Avatar</TableCell>
+                <TableCell sx={{width:'100px'}}>Name</TableCell>
+                <TableCell sx={{width:'100px'}}>Phone No</TableCell>
+                <TableCell sx={{width:'100px'}}>DOP</TableCell>
             </TableRow>
         </TableHead>
         <TableBody>
-        {[1,2,3,4,5,6,7,8].map((ele)=>  <TableRow key={ele} sx={{
+        {[1,2,3].map((ele)=>  <TableRow key={ele} sx={{
             bgcolor:'#fff',
             borderRadius:'10px',
             margin:'10px 0px'
         }} >
-            <TableCell><Avatar src={drr}>R</Avatar></TableCell>
-            <TableCell>Raghu Ram</TableCell>
-            <TableCell>7386986880</TableCell>
-            <TableCell>21-11-2001</TableCell>
+            <TableCell sx={{width:'100px'}}><Avatar src={drr}>R</Avatar></TableCell>
+            <TableCell sx={{width:'100px'}}>Raghu Ram</TableCell>
+            <TableCell sx={{width:'100px'}}>7386986880</TableCell>
+            <TableCell sx={{width:'100px'}}>21-11-2001</TableCell>
         </TableRow>)}
       
 

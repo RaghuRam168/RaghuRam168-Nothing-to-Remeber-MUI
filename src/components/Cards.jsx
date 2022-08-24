@@ -11,6 +11,7 @@ import {
   Typography,
   CardActionArea,
   Box,
+  ButtonGroup,
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -18,6 +19,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import { borderRadius } from "@mui/system";
 import { addProduct,editProductQuantityInCart } from "../redux/CartSlice";
 import { editProductQuantityInProducts } from "../redux/ProductSlice";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const Cards = (props) => {
   const dispatch = useDispatch()
@@ -47,26 +49,31 @@ const Cards = (props) => {
         dispatch(addProduct({
           id:props.id,
           quantity:1,
-          name:props.name
+          name:props.name,
+          photo:props.photo
         }))
         // addProduct(dispatch,{
         //   id:props.id,
         //   quantity:1
         // })
-      }}>ADD</Button>:<CardActions
+      }}>ADD</Button>:<ButtonGroup
        sx={{
        margin:'0px auto'
        }}
        >
         
         <Button
+        
         id="sub"
         aria-lable="sub"
         sx={{
           height:40,
           width:40,
           backgroundColor:'error.main',
-          color:'#fff'
+          color:'#fff',
+          hover:{
+            backgroundColor:"#FF1E00"
+          }
         }}
         onClick={()=>{
           dispatch(editProductQuantityInCart({
@@ -80,7 +87,7 @@ const Cards = (props) => {
           // })
         }}>
           <RemoveIcon />
-        </Button>
+        </Button >
           <Box 
           sx={{
             width:50,
@@ -110,7 +117,7 @@ const Cards = (props) => {
         </Button>
        
 
-      </CardActions>}
+      </ButtonGroup>}
       </CardActions>
     </Card>
   );

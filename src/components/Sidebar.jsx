@@ -24,15 +24,18 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {BrowserRouter as Router,NavLink,Route,Routes, useNavigate,Outlet} from 'react-router-dom'
-
+import { Badge } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import Cart from './Cart';
+import { changeCartVisibility } from '../redux/CartSlice';
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
- // const navigate = useNavigate()
+const dispatch = useDispatch()
+ const count = useSelector((state)=>state.cart.items)
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -94,7 +97,13 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap component="div">
             Nothing to Remember
           </Typography>
+          <Box sx={{flexGrow:1}} />
+          <Badge badgeContent={count.length} color="error" onClick={()=>{
+            dispatch(changeCartVisibility())
+          console.log("CART")}} >
           <ShoppingCartIcon/>
+          </Badge>
+         
         </Toolbar>
       </AppBar>
       <Box
@@ -138,6 +147,7 @@ function ResponsiveDrawer(props) {
            <Outlet/>
         </Container>
       </Box>
+      <Cart/>
     </Box>
   );
 }

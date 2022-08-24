@@ -16,6 +16,7 @@ import CustomerList from "./page/CustomerList";
 import Store from "./redux/Store";
 import { Provider } from "react-redux";
 import Cart from "./components/Cart";
+import Customer from "./page/Customer";
 function App() {
   const theme = createTheme({
     palette: {
@@ -57,6 +58,7 @@ function App() {
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="customer" element={<Customer/>} />
           <Route path="/" element={<Home/>} />
         </Routes>
       </Router>
