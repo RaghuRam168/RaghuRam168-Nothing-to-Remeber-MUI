@@ -17,38 +17,38 @@ import {
   DialogContentText,
   DialogContent,
   DialogTitle,
-  TextField
+  TextField,
+  ButtonGroup,
 } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { borderRadius } from "@mui/system";
-import { deleteProduct ,editProduct } from "../redux/ProductSlice";
+import { deleteProduct, editProduct } from "../redux/ProductSlice";
 import { useDispatch } from "react-redux";
 
-
 const EditCard = (props) => {
-const dispatch = useDispatch()
-    const inputChangeHandler = (e) => {
-        setInputDetails({...inputDetails,[e.target.id]:e.target.value})
-        //console.log(e);
-    };
+  const dispatch = useDispatch();
+  const inputChangeHandler = (e) => {
+    setInputDetails({ ...inputDetails, [e.target.id]: e.target.value });
+    //console.log(e);
+  };
 
   const [inputDetails, setInputDetails] = useState({
-    id:props.id,
+    id: props.id,
     photo: props.photo,
     name: props.name,
     cost: props.cost,
-    stock:props.stock,
-    selected:props.selected
+    stock: props.stock,
+    selected: props.selected,
   });
   const [cardDetails, setCardDetails] = useState({
     photo: props.photo,
     name: props.name,
     cost: props.cost,
-    stock:props.stock,
-    selected:props.selected
+    stock: props.stock,
+    selected: props.selected,
   });
   const [edit, setEdit] = useState(false);
   const [remove, setRemove] = useState(false);
@@ -80,32 +80,33 @@ const dispatch = useDispatch()
             justifyContent: "space-around",
           }}
         >
-          <Button
-            className="add"
-            aria-lable="add"
-            onClick={() => setEdit(!edit)}
-            sx={{
-              height: 40,
-              width: 40,
-              backgroundColor: "success.main",
-              color: "#fff",
-            }}
-          >
-            <BorderColorIcon />
-          </Button>
-
-          <Button
-            sx={{
-              height: 40,
-              width: 40,
-              backgroundColor: "error.main",
-              color: "#fff",
-            }}
-            aria-lable="sub"
-            onClick={() => setRemove(!remove)}
-          >
-            <DeleteForeverIcon />
-          </Button>
+          <ButtonGroup variant="none">
+            <Button
+              onClick={() => setEdit(!edit)}
+              sx={{
+                height: 40,
+                width: 40,
+                backgroundColor: "success.light",
+                color: "#fff",
+                ":hover": { bgcolor: "success.main" },
+              }}
+            >
+              <BorderColorIcon />
+            </Button>
+            <Button sx={{ ":hover": { bgcolor: "#fff" } }}></Button>
+            <Button
+              sx={{
+                height: 40,
+                width: 40,
+                backgroundColor: "error.light",
+                color: "#fff",
+                ":hover": { bgcolor: "error.main" },
+              }}
+              onClick={() => setRemove(!remove)}
+            >
+              <DeleteForeverIcon />
+            </Button>
+          </ButtonGroup>
         </CardContent>
       </Card>
 
@@ -128,56 +129,86 @@ const dispatch = useDispatch()
           <Button autoFocus onClick={() => setRemove(!remove)}>
             Disagree
           </Button>
-          <Button onClick={() => { 
-            console.log("AGREE")
-            dispatch(deleteProduct({id:props.id}))
-            setRemove(!remove)}} autoFocus>
+          <Button
+            onClick={() => {
+              console.log("AGREE");
+              dispatch(deleteProduct({ id: props.id }));
+              setRemove(!remove);
+            }}
+            autoFocus
+          >
             Agree
           </Button>
         </DialogActions>
       </Dialog>
 
-    <Dialog
-    open={edit}
-    onClose={()=>setEdit(!edit)}
-    aria-labelledby="responsive-dialog-title"
-    >
+      <Dialog
+        open={edit}
+        onClose={() => setEdit(!edit)}
+        aria-labelledby="responsive-dialog-title"
+      >
         <DialogTitle>Edit Product</DialogTitle>
-        <DialogContent sx={{display:'flex',flexDirection:'column',justifyContent:'space-between'}} >
-        <CardMedia
-          component="img"
-          height="150"
-          sx={{ height: { xs: 300 } }}
-          image={props.photo}
-          alt="Product Image"
-        />
-            <TextField sx={{m:'10px 0px'}} id="name" label='Name' defaultValue={props.name} onChange={inputChangeHandler} />
-            <TextField sx={{m:'10px 0px'}} id='cost' label ='Cost' defaultValue={props.cost}  onChange={inputChangeHandler} type='number' />
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="150"
+            sx={{ height: { xs: 300 } }}
+            image={props.photo}
+            alt="Product Image"
+          />
+          <TextField
+            sx={{ m: "10px 0px" }}
+            id="name"
+            label="Name"
+            defaultValue={props.name}
+            onChange={inputChangeHandler}
+          />
+          <TextField
+            sx={{ m: "10px 0px" }}
+            id="cost"
+            label="Cost"
+            defaultValue={props.cost}
+            onChange={inputChangeHandler}
+            type="number"
+          />
         </DialogContent>
         <DialogActions>
-        <Button autoFocus onClick={() =>  {
-            setInputDetails(cardDetails)
-            setEdit(!edit)
-            }}>
+          <Button
+            autoFocus
+            onClick={() => {
+              setInputDetails(cardDetails);
+              setEdit(!edit);
+            }}
+          >
             Cancel
           </Button>
-          <Button onClick={() => {
-            // setCardDetails(inputDetails)
-            dispatch(editProduct({
-              id:props.id,
-              cost:inputDetails.cost,
-              name:inputDetails.name,
-              photo:inputDetails.photo,
-              stock:inputDetails.stock,
-              selected:props.selected
-            }))
-            setEdit(!edit)
-            }} autoFocus>
+          <Button
+            onClick={() => {
+              // setCardDetails(inputDetails)
+              dispatch(
+                editProduct({
+                  id: props.id,
+                  cost: inputDetails.cost,
+                  name: inputDetails.name,
+                  photo: inputDetails.photo,
+                  stock: inputDetails.stock,
+                  selected: props.selected,
+                })
+              );
+              setEdit(!edit);
+            }}
+            autoFocus
+          >
             Save
           </Button>
         </DialogActions>
-    </Dialog>
-
+      </Dialog>
     </>
   );
 };
